@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+<!--    <bean id="userDao" class="com.lry.dao.impl.UserDaoImpl" scope="prototype" init-method="init" destroy-method="destory"></bean>-->
+<!--    <bean id="userDao" class="com.lry.factory.StaticFactory" factory-method="getUserDao"></bean>-->
+<!--    <bean id="factory" class="com.lry.factory.DynamicFactory"></bean>-->
+<!--    <bean id="userDao" factory-bean="factory" factory-method="getUserDao"></bean>-->
+
+<!--    <bean id="userDao" class="com.lry.dao.impl.UserDaoImpl">-->
+<!--        <property name="username" value="张三"/>-->
+<!--        <property name="age" value="18"/>-->
+<!--    </bean>-->
+
+    <bean id="userDao" class="com.lry.dao.impl.UserDaoImpl">
+        <property name="stringList">
+            <list>
+                <value>aaa</value>
+                <value>bbb</value>
+                <value>ccc</value>
+            </list>
+        </property>
+        <property name="userMap">
+            <map>
+                <entry key="u1" value-ref="user1"></entry>
+                <entry key="u2" value-ref="user2"></entry>
+            </map>
+        </property>
+        <property name="properties">
+            <props>
+                <prop key="p1">1</prop>
+                <prop key="p2">22</prop>
+                <prop key="p3">333</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="user1" class="com.lry.domain.User">
+        <property name="name" value="Tom"></property>
+        <property name="address" value="ShangHai"></property>
+    </bean>
+    <bean id="user2" class="com.lry.domain.User">
+        <property name="name" value="Sam"></property>
+        <property name="address" value="BeiJing"></property>
+    </bean>
+
+
+
+<!--    <bean id="userService" class="com.lry.service.Impl.UserServiceImpl">-->
+<!--        <property name="userDao" ref="userDao"></property>-->
+<!--    </bean>-->
+<!--    <bean id="userService" class="com.lry.service.Impl.UserServiceImpl" p:userDao-ref="userDao"></bean>-->
+
+    <bean id="userService" class="com.lry.service.Impl.UserServiceImpl">
+        <constructor-arg name="userDao" ref="userDao"></constructor-arg>
+    </bean>
+
+</beans>
